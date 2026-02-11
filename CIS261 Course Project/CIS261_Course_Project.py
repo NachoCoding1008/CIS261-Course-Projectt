@@ -73,19 +73,22 @@ def main():
         if name.lower() == "end":
             break
 
-        from_date, to_date, hours_worked = get_dates_and_hours()
-        hourly_rate = float(input("Enter hourly rate: "))
-        tax_rate = float(input("Enter income tax rate (e.g., 0.20 for 20%): "))
+    hours = get_total_hours()
+    rate = get_hourly_rate()
+    tax_rate = get_tax_rate()
 
-        
-        employee_record = [name, from_date, to_date, hours_worked, hourly_rate, tax_rate]
-        employees.append(employee_record)
+    gross, tax, net = calculate_pay (hours, rate, tax_rate)
 
-    
-    process_employees(employees, totals)
+    display_employee(employee_name, hours, rate, gross, tax_rate, tax, net)
 
-    
-    display_totals(totals)
+    employee_count += 1
+    total_hours += hours
+    total_gross += gross
+    total_tax += tax
+    total_net += net
+
+display_totals(employee_count, total_hours, total_gross, total_tax, total_net)
+
 
 if __name__ == "__main__":
     main()
